@@ -1,7 +1,9 @@
-dictionary 'noun', 'dog', 'bus'
-dictionary 'verb', 'barked', 'parked'
-dictionary 'preposition', 'at'
+dictionary 
+  noun 'dog', 'bus'
+  verb 'barked', 'parked'
+  preposition 'at'
 
-rule 'phrase', 'noun', 'verb', 'preposition', 'noun'
+rule 
+  phrase 'noun', 'verb', 'preposition', 'noun'
 
 codex 'phrase'
