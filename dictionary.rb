@@ -11,7 +11,7 @@ class Dictionary
 
   def fetch key
     puts "Fetching #{key} from dictionary"
-    @dicts[key][0] # should be random
+    @dicts[key][(rand*@dicts[key].size).to_i]
   end
 
 end
