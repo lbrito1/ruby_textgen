@@ -1,0 +1,3 @@
+dictionary 'teste', 'a', 'b'
+rule 'regra', 'teste'
+codex 'regra'
