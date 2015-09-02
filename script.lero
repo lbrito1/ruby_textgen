@@ -1,3 +1,7 @@
-dictionary 'teste', 'a', 'b'
-rule 'regra', 'teste'
-codex 'regra'
+dictionary 'noun', 'dog', 'bus'
+dictionary 'verb', 'barked', 'parked'
+dictionary 'preposition', 'at'
+
+rule 'phrase', 'noun', 'verb', 'preposition', 'noun'
+
+codex 'phrase'
