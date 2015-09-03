@@ -1,17 +1,16 @@
 #!/usr/bin/env ruby
-require_relative 'grammar'
-require_relative 'dictionary'
-require_relative 'rule'
-require_relative 'codex'
+require './grammar'
+require './dictionary'
+require './rule'
+require './codex'
+
+@state = :idle
 
 @grammar = Grammar.new
 
-def dictionary
-  @state = :dictionary
-end
-
-def rule
-  @state = :rule
+@keywords = ['rule', 'dictionary']
+@keywords.each do |keyword|
+  define_method(keyword) { @state = keyword.to_sym }
 end
 
 def codex *rulenames
@@ -20,7 +19,6 @@ def codex *rulenames
 end
 
 def method_missing method, *args, &block
-  @state ||= :idle
   case @state
   when :dictionary
     puts "Read dictionary with: #{method.to_s} #{args.to_s}"
@@ -29,8 +27,9 @@ def method_missing method, *args, &block
     puts "Read rule with: #{method.to_s} #{args.to_s}"
     @grammar.rules[method.to_s] = (Rule.new args)
   when :idle
+    puts "I can't do anything with #{method.to_s}"
   else
-    puts "Boom! Something went wrong. I don't know what to do with #{@state.to_s}."
+    super
   end
 end  
 
