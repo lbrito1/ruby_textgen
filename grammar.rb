@@ -10,7 +10,7 @@ class Grammar
   def generate
     text = ''
     @codex.each { |codex| text << (codex.run @rules) }
-    puts "Final result: \n========\n#{text}\n======="
+    puts "Final result: \n========\n#{text}\n========"
   end
 
 end

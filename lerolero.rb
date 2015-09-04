@@ -8,15 +8,28 @@ require 'byebug'
 
 @grammar = Grammar.new
 
-@keywords = ['rule', 'dictionary']
+@keywords = ['dictionary']
 @keywords.each do |keyword|
   define_method(keyword) { @state = keyword.to_sym }
+end
+
+def rule *args
+  puts "Read rule: #{args.to_s}"
+  @grammar.rules[args.first.to_s] = (Rule.new args.first.to_s)
+  @last_rule ||= args.first.to_s
+  define_method(args.first.to_s) { @grammar.rules[args.first.to_s] }
+  @state = :rule
 end
 
 def codex *rulenames
   puts "Read codex with: #{rulenames.to_s}"
   @grammar.codex << (Codex.new rulenames)
 end
+
+def opt *args
+  puts "Read option for rule #{@last_rule}: #{args.to_s}"
+  @grammar.rules[@last_rule].options << args
+end 
 
 def method_missing method, *args, &block
   case @state
@@ -29,8 +42,7 @@ def method_missing method, *args, &block
       args[(rand*args.size).to_i] + '.'
     end
   when :rule
-    puts "Read rule with: #{method.to_s} #{args.to_s}"
-    @grammar.rules[method.to_s] = (Rule.new args)
+    
   when :idle
     puts "I can't do anything with #{method.to_s}"
   else

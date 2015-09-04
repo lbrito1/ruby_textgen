@@ -3,7 +3,12 @@ dictionary
   verb 'barked', 'parked'
   preposition 'at'
 
-rule 
-  phrase 'The', noun, verb, preposition, 'a', noun!
+rule 'phrase'
+  opt 'The', noun, verb, preposition, 'a', noun!
+  opt 'Here goes some', phrase, 'recursion.'
+  opt 'Meet me', preposition, 'the station.'
+
+rule 'phrase2'
+  opt 'test'
 
 codex 'phrase'
