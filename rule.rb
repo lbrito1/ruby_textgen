@@ -7,13 +7,8 @@ class Rule
   end
 
   def apply
-    text = ''
-    keys.each do |key|
-      puts "Applying rule with key: #{key.to_s}"
-      word = Dictionary.instance.fetch key
-      text << ' ' << word
-    end
-    text
+    puts "Applying rule with keys: #{keys.to_s}"
+    keys.join(" ")
   end
 
 end

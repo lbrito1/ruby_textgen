@@ -1,15 +1,12 @@
 #!/usr/bin/env ruby
 require './grammar'
-require './dictionary'
 require './rule'
 require './codex'
+require 'byebug'
 
 @state = :idle
-
 @grammar = Grammar.new
-
-@keywords = ['rule', 'dictionary']
-@keywords.each do |keyword|
+%w'rule dictionary'.each do |keyword|
   define_method(keyword) { @state = keyword.to_sym }
 end
 
@@ -22,7 +19,7 @@ def method_missing method, *args, &block
   case @state
   when :dictionary
     puts "Read dictionary with: #{method.to_s} #{args.to_s}"
-    Dictionary.instance.add method.to_s, args
+    define_method(method) { args.sample }
   when :rule
     puts "Read rule with: #{method.to_s} #{args.to_s}"
     @grammar.rules[method.to_s] = (Rule.new args)
