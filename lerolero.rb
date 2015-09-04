@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 require './grammar'
-require './dictionary'
 require './rule'
 require './codex'
+require 'byebug'
 
 @state = :idle
 
@@ -22,7 +22,12 @@ def method_missing method, *args, &block
   case @state
   when :dictionary
     puts "Read dictionary with: #{method.to_s} #{args.to_s}"
-    Dictionary.instance.add method.to_s, args
+    define_method(method) do
+      args[(rand*args.size).to_i]
+    end
+    define_method("#{method.to_s}!") do
+      args[(rand*args.size).to_i] + '.'
+    end
   when :rule
     puts "Read rule with: #{method.to_s} #{args.to_s}"
     @grammar.rules[method.to_s] = (Rule.new args)

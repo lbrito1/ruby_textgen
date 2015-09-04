@@ -5,7 +5,6 @@ class Grammar
   def initialize
     @rules ||= {}
     @codex = []
-    @dict = Dictionary.instance
   end
 
   def generate
