@@ -4,6 +4,6 @@ dictionary
   preposition 'at'
 
 rule 
-  phrase 'noun', 'verb', 'preposition', 'noun'
+  phrase 'The', 'noun', 'verb', 'preposition', 'a', 'noun', '.'
 
 codex 'phrase'

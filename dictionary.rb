@@ -11,7 +11,8 @@ class Dictionary
 
   def fetch key
     puts "Fetching #{key} from dictionary"
-    @dicts[key][(rand*@dicts[key].size).to_i]
+    atom = @dicts[key]
+    (atom.nil? || atom.empty?) ? key.to_s : atom[(rand*atom.size).to_i]
   end
 
 end
