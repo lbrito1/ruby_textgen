@@ -15,7 +15,7 @@ def grammar args
 end
 
 def rule *args
-  puts "Read rule: #{args.to_s}"
+  verbose "Read rule: #{args.to_s}"
   @last_rule = args.first.to_s
   @grammar.rules[@last_rule] = (Rule.new @last_rule)
   define_method(@last_rule) { @grammar.rules[@last_rule] }
@@ -24,18 +24,23 @@ end
 
 def opt *args
   if @state == :rule
-    puts "Read option for rule #{@last_rule}: #{args.to_s}"
+    verbose "Read option for rule #{@last_rule}: #{args.to_s}"
     @grammar.rules[@last_rule].options << args
   end
 end 
 
 def method_missing method, *args, &block
   if @state == :dictionary
-    puts "Read dictionary with: #{method.to_s} #{args.to_s}"
+    verbose "Read dictionary with: #{method.to_s} #{args.to_s}"
     define_method(method) { args[(rand*args.size).to_i] }
   else
     super
   end
 end  
 
-load 'script.lero'
+if ARGV.size == 0
+  puts "You forgot to pass an argument.\nUsage: ruby lerolero.rb myscript.lero [-V]"
+else
+  define_method('verbose') { |arg| puts arg if ARGV[1] && ARGV[1] == '-V' } 
+  load ARGV[0]
+end
