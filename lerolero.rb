@@ -18,7 +18,7 @@ def rule *args
   verbose "Read rule: #{args.to_s}"
   @last_rule = args.first.to_s
   @grammar.rules[@last_rule] = (Rule.new @last_rule)
-  define_method(@last_rule) { @grammar.rules[@last_rule] }
+  define_method(args.first.to_s) { @grammar.rules[args.first.to_s] }
   @state = :rule
 end
 
@@ -32,7 +32,8 @@ end
 def method_missing method, *args, &block
   if @state == :dictionary
     verbose "Read dictionary with: #{method.to_s} #{args.to_s}"
-    define_method(method) { args[(rand*args.size).to_i] }
+    @grammar.add_words(method, args)
+    define_method(method.to_s) { @grammar.words[method.to_s] }
   else
     super
   end
