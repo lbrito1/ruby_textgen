@@ -1,16 +1,15 @@
 class Grammar
 
-  attr_accessor :rules, :codex
+  attr_accessor :rules
 
   def initialize
     @rules = {}
-    @codex = []
   end
 
-  def generate qty = 1
+  def generate args
     text = ''
-    (1..qty).each do |i|
-      @codex.each { |codex| text << "\n#{i}\t#{(codex.run @rules)}" }
+    args.each do |rulename, qty| 
+      (1..qty).each { text << "#{@rules[rulename.to_s].to_s} " }
     end
     puts "Final result: \n========\n#{text}\n========"
   end

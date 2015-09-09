@@ -11,4 +11,4 @@ rule 'phrase'
 rule 'phrase2'
   opt 'test'
 
-codex 'phrase'
+grammar phrase: 10, phrase2: 1
