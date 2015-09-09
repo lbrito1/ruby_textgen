@@ -5,18 +5,16 @@ require './codex'
 require 'byebug'
 
 @state = :idle
-
 @grammar = Grammar.new
 
-@keywords = ['dictionary']
-@keywords.each do |keyword|
-  define_method(keyword) { @state = keyword.to_sym }
+def dictionary
+  @state = :dictionary
 end
 
 def rule *args
   puts "Read rule: #{args.to_s}"
   @grammar.rules[args.first.to_s] = (Rule.new args.first.to_s)
-  @last_rule ||= args.first.to_s
+  @last_rule = args.first.to_s
   define_method(args.first.to_s) { @grammar.rules[args.first.to_s] }
   @state = :rule
 end
@@ -38,11 +36,6 @@ def method_missing method, *args, &block
     define_method(method) do
       args[(rand*args.size).to_i]
     end
-    define_method("#{method.to_s}!") do
-      args[(rand*args.size).to_i] + '.'
-    end
-  when :rule
-    
   when :idle
     puts "I can't do anything with #{method.to_s}"
   else
