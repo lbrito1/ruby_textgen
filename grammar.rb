@@ -3,13 +3,15 @@ class Grammar
   attr_accessor :rules, :codex
 
   def initialize
-    @rules ||= {}
+    @rules = {}
     @codex = []
   end
 
-  def generate
+  def generate qty = 1
     text = ''
-    @codex.each { |codex| text << (codex.run @rules) }
+    (1..qty).each do |i|
+      @codex.each { |codex| text << "\n#{i}\t#{(codex.run @rules)}" }
+    end
     puts "Final result: \n========\n#{text}\n========"
   end
 
