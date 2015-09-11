@@ -19,8 +19,10 @@ class Grammar
   def generate args
     text = ''
     args.each do |rulename, qty| 
-      (1..qty).each { text << "#{@rules[rulename.to_s].to_s} " }
+      (1..qty).each { text << @rules[rulename.to_s].to_s }
     end
+    text.gsub!(/ \./, '.')
+    text.gsub!(/\. [a-z]/) { |match| match[0..1] + match[-1].upcase }
     puts "Final result: \n========\n#{text}\n========"
   end
 
