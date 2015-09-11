@@ -1,0 +1,6 @@
+rule 'par'
+  opt '()'
+  opt '(', par, ')'
+  opt par, par
+
+grammar par: 1
