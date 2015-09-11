@@ -7,7 +7,7 @@ class Grammar
     @words = {}
     Struct.new 'Word', :key, :values do
       def to_s
-        values[(rand*values.size).to_i]
+        values.sample
       end
     end
   end

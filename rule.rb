@@ -8,7 +8,7 @@ class Rule
   end
 
   def to_s
-    randkeys = options[(rand*options.size).to_i]
+    randkeys = options.sample
     randkeys.map! { |k| k.to_s }
     verbose "Applying rule #{@name} with keys: #{randkeys}."
     randkeys.join(" ")
