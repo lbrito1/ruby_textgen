@@ -30,5 +30,5 @@ def method_missing method, *args, &block
   end
 end  
 
-load 'script.lero'
+load 'script.le'
 @grammar.generate
